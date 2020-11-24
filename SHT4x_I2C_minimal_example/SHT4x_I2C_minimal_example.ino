@@ -31,9 +31,9 @@
 
 #include <Wire.h>
 
-// SDP8xx with I2C address = 0x25
-// depending on the sensor type this could be alternatively 0x26
-const int16_t SDP8xx_ADDRESS = 0x25;
+// SHT4x with I2C address A (SHT4x-AD1B) = 0x44
+// SHT40 with I2C address A (SHT40-BD1B) = 0x45
+const int16_t SHT_ADDRESS = 0x44;
 
 void setup() {
   Serial.begin(115200);
@@ -43,48 +43,45 @@ void setup() {
   while(!Serial);
 
   // output format
-  Serial.println("DP\tT");
+  Serial.println("RelativeHumidity(percent)\tTemperature(degC)");
   
   // init I2C
   Wire.begin();
-  
-  // wait until sensors startup, > 25 ms according to datasheet
-  delay(25);
 
-  // start up sensor, sensor will go to continuous measurement mode
-  // differential pressure mode with averaging till read 
-  Wire.beginTransmission(SDP8xx_ADDRESS);
-  Wire.write(0x36);
-  Wire.write(0x15);
-  Wire.endTransmission();
-
-  // wait until first data is ready, > 8 ms
-  delay(10);
+  // wait until sensors are ready, < 1 ms according to datasheet
+  delay(1);
 }
 
 void loop() {
+  float temperature, humidity;
+  uint8_t data[6], counter;
 
-  uint16_t scaling;
-  int16_t dp, temperature;
-  uint8_t data[9], counter;
+  // start sht measurement in high prescision
+  Wire.beginTransmission(SHT_ADDRESS);
+  Wire.write(0xFD);
+  Wire.endTransmission();
 
-  // read measurement data, after two bytes a CRC follows
-  Wire.requestFrom(SDP8xx_ADDRESS, 9);
+  // wait for measurement has finished according to datasheet > 8.2 ms
+  delay(9);
+
+  // read measurement data sht: 2 bytes T, 1 byte CRC, 2 bytes RH, 1 byte CRC
+  Wire.requestFrom(SHT_ADDRESS, 6);
   counter = 0;
   while (Wire.available()) {
     data[counter++] = Wire.read();
   }
-
-  dp = (uint16_t)data[0] << 8 | data[1];
-  temperature = (uint16_t)data[3] << 8 | data[4];
-  scaling = (uint16_t)data[6] << 8 | data[7];
-
-
-  Serial.print(String(float(dp) / scaling));
+  
+  // floating point conversion according to datasheet
+  // convert T in degC
+  temperature = -45 + 175 * (float)((uint16_t)data[0] << 8 | data[1]) / 65535;
+  // convert RH in %
+  humidity = -6 + 125 * (float)((uint16_t)data[3] << 8 | data[4]) / 65535;
+  
+  Serial.print(humidity);
   Serial.print("\t");
-  Serial.print(String(float(temperature) / 200));
+  Serial.print(temperature);
   Serial.println();
 
-  // wait 100 ms for next measurement
-  delay(100);
+  // wait 1 s for next measurement
+  delay(1000);
 }
