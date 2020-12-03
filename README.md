@@ -8,3 +8,16 @@ The code for the I2C interface examples is written without the use of abstractio
 
 The UART examples typically are referring to the SHDLC driver by Sensirion which is included in each example folder. 
 
+# How to use
+
+All samples in this directory share the same format; as such, you can follow the instructions below to get any of them up and running:
+
+1. If you haven't done so yet, install the [Arduino IDE](https://www.arduino.cc/en/software) and run some [basic test programs](https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink) to ensure your system is configured properly
+1. Unplug your Arduino from your computer
+1. Connect your sensor to the Arduino board. If you're unsure how to do that, please consult the sensors datasheet and the Arduino pinout
+1. Reconnect your Arduino to your computer
+1. Create a new Sketch in the Arduino IDE
+1. Copy the contents of the .ino file and replace the content of your newly created sketch
+1. Save your project under a meaningful name
+1. Compile and flash the sketch
+1. Open the "Serial Monitor" from the "Tools" menu in the Arduino IDE to display the output data read from the sensor
