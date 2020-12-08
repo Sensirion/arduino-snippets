@@ -35,6 +35,9 @@
 const int16_t SEN44_ADDRESS = 0x69;
 
 void setup() {
+  int16_t t_offset;
+  uint8_t data[3], counter;
+
   Serial.begin(115200);
   // wait for serial connection from PC
   // comment the following line if you'd like the output
@@ -42,41 +45,115 @@ void setup() {
   while(!Serial);
 
   // output format
-  Serial.println("PM1.0\tPM2.5\tPM4.0\tPM10.0\tVOC_Index\tRH\tT");
-  
+  Serial.println("PM1.0\tPM2.5\tPM4.0\tPM10.0\tVOC_Index\tRH\tT");  
+
   // init I2C
   Wire.begin();
   
   // wait until sensors startup, > 1 ms according to datasheet
-  delay(1);
+  delay(100);
 
-  // start up sensor, sensor will go to continuous measurement mode
+  // read t offset from flash memory
+  Wire.beginTransmission(SEN44_ADDRESS);
+  Wire.write(0x60);
+  Wire.write(0x14);
+  Wire.endTransmission();  
+
+  // wait 10 ms to allow the sensor to fill the internal buffer
+  delay(10);
+
+  // read offset data, after two bytes a CRC follows
+  Wire.requestFrom(SEN44_ADDRESS, 3);
+  counter = 0;
+  while (Wire.available()) {
+    data[counter++] = Wire.read();
+  }
+  
+  t_offset = (uint16_t)data[0] << 8 | data[1];
+
+  // print value, as all temperature values, this one is also scaled by 200
+  Serial.print("Default T Offset: ");
+  Serial.print(String(float(t_offset)/200));
+  Serial.println();
+
+  // set t offset to new value (-5 degC) and scale it accordingly by a factor of 200
+  t_offset = -5 * 200;
+
+  // prepare buffer with t offset data
+  // calculate CRC for each 2 bytes of data
+  data[0] = (t_offset & 0xff00) >> 8;
+  data[1] = t_offset & 0x00ff;
+  data[2] = CalcCrc(data);
+
+  // send new value for t offset to sensor (will be hold in RAM, not persistent)
+  Wire.beginTransmission(SEN44_ADDRESS);
+  Wire.write(0x60);
+  Wire.write(0x14);
+  Wire.write(data[0]);
+  Wire.write(data[1]);
+  Wire.write(data[2]);
+  Wire.endTransmission();
+
+  // wait 10 ms to allow the sensor to fill the internal buffer
+  delay(10);
+
+  // now send command to save parameter in the flash (NVM memory) of the sensor to have persistence
+  Wire.beginTransmission(SEN44_ADDRESS);
+  Wire.write(0x60);
+  Wire.write(0x02);
+  Wire.endTransmission();
+  
+  // wait 20 ms to allow the sensor to write the data into the flash
+  delay(20);
+
+  // repeat read offset data to make sure that the values are applied correctly
+  Wire.beginTransmission(SEN44_ADDRESS);
+  Wire.write(0x60);
+  Wire.write(0x14);
+  Wire.endTransmission();  
+
+  // wait 10 ms to allow the sensor to fill the internal buffer
+  delay(10);
+
+  // read offset data, after two bytes a CRC follows
+  Wire.requestFrom(SEN44_ADDRESS, 3);
+  counter = 0;
+  while (Wire.available()) {
+    data[counter++] = Wire.read();
+  }
+
+  t_offset = (uint16_t)data[0] << 8 | data[1];
+
+  Serial.print("New T Offset: ");
+  Serial.print(String(float(t_offset)/200));
+  Serial.println();
+
+  // start up sensor, sensor will go to continous measurement mode
   // each second there will be new measurement values
   Wire.beginTransmission(SEN44_ADDRESS);
   Wire.write(0x00);
   Wire.write(0x21);
   Wire.endTransmission();
 
-  // wait until sensor is ready, fan is initialized
-  delay(1000);
+  // wait until sensors is ready, fan is initialized
+  delay(2000);
 }
 
 void loop() {
-
   uint16_t pm1p0, pm2p5, pm4p0, pm10p0;
   int16_t voc, humidity, temperature;
   uint8_t data[21], counter;
 
-  // send read measurement data command
+  // read measurement data
   Wire.beginTransmission(SEN44_ADDRESS);
   Wire.write(0x03);
   Wire.write(0x74);
   Wire.endTransmission();
-  
+
   // wait 10 ms to allow the sensor to fill the internal buffer
   delay(10);
 
-  // read measurement data SEN44, after two bytes a CRC follows
+  // read measurement data sen44, after two bytes a CRC follows
   Wire.requestFrom(SEN44_ADDRESS, 21);
   counter = 0;
   while (Wire.available()) {
@@ -85,6 +162,7 @@ void loop() {
 
   // PM1.0 to PM10 are unscaled unsigned integer values in ug / um3
   // VOC level is a signed int and scaled by a factor of 10 and needs to be divided by 10
+  // VOC raw value is an uint16_t and has no scaling
   // humidity is a signed int and scaled by 100 and need to be divided by 100
   // temperature is a signed int and scaled by 200 and need to be divided by 200
   pm1p0 = (uint16_t)data[0] << 8 | data[1];
@@ -112,4 +190,20 @@ void loop() {
 
   // wait 1 s for next measurement
   delay(1000);
+}
+
+// calculate CRC according to datasheet
+uint8_t CalcCrc(uint8_t data[2]) {
+  uint8_t crc = 0xFF;
+  for(int i = 0; i < 2; i++) {
+    crc ^= data[i];
+    for(uint8_t bit = 8; bit > 0; --bit) {
+      if(crc & 0x80) {
+        crc = (crc << 1) ^ 0x31u;
+      } else {
+        crc = (crc << 1);
+      }
+    }
+  }
+  return crc;
 }

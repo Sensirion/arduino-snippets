@@ -112,8 +112,8 @@ void loop() {
   Wire.write(0x74);
   Wire.endTransmission();
   
-  // wait 5 ms to allow the sensor to fill the internal buffer
-  delay(5);
+  // wait 10 ms to allow the sensor to fill the internal buffer
+  delay(10);
 
   // read measurement data SEN44, after two bytes a CRC follows
   Wire.requestFrom(SEN44_ADDRESS, 21);
