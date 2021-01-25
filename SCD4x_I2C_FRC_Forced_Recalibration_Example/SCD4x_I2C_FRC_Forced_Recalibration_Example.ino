@@ -31,7 +31,7 @@
 
 #include <Wire.h>
 
-// SCD40
+// SCD4x
 const int16_t SCD_ADDRESS = 0x62;
 
 void setup() {
@@ -52,7 +52,7 @@ void setup() {
   // wait until sensors are ready, > 1000 ms according to datasheet
   delay(1000);
   
-  // start scd measurement in periodic mode, will update every 2 s
+  // start scd measurement in periodic mode, will update every 5 s
   Wire.beginTransmission(SCD_ADDRESS);
   Wire.write(0x21);
   Wire.write(0xb1);
@@ -108,7 +108,7 @@ void setup() {
   // wait for sensor
   delay(20);
 
-  // assuming an external reference shows 350 ppm
+  // assuming an external reference shows 650 ppm
   calibration = 650;
   
   // prepare buffer with data for calibration
@@ -155,8 +155,8 @@ void setup() {
   Wire.write(0xb1);
   Wire.endTransmission();
 
-  // wait for first measurement to be finished
-  delay(4000);
+  // wait for first measurement to be finished (> 5 s)
+  delay(10000);
 }
 
 void loop() {
@@ -194,8 +194,8 @@ void loop() {
   Serial.print(humidity);
   Serial.println();
 
-  // wait 2 s for next measurement
-  delay(2000);
+  // wait 5 s for next measurement
+  delay(5000);
 }
 
 // calculate CRC according to datasheet section 5.17

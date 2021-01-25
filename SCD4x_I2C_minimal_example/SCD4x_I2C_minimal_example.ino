@@ -31,10 +31,11 @@
 
 #include <Wire.h>
 
-// SCD40
+// SCD4x
 const int16_t SCD_ADDRESS = 0x62;
 
 void setup() {
+  // check in your settings that the right speed is selected
   Serial.begin(115200);
   // wait for serial connection from PC
   // comment the following line if you'd like the output
@@ -50,14 +51,14 @@ void setup() {
   // wait until sensors are ready, > 1000 ms according to datasheet
   delay(1000);
   
-  // start scd measurement in periodic mode, will update every 2 s
+  // start scd measurement in periodic mode, will update every 5 s
   Wire.beginTransmission(SCD_ADDRESS);
   Wire.write(0x21);
   Wire.write(0xb1);
   Wire.endTransmission();
 
   // wait for first measurement to be finished
-  delay(2000);
+  delay(5000);
 }
 
 void loop() {
@@ -96,5 +97,5 @@ void loop() {
   Serial.println();
 
   // wait 2 s for next measurement
-  delay(2000);
+  delay(5000);
 }
