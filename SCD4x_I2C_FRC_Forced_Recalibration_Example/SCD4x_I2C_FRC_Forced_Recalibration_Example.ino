@@ -105,9 +105,8 @@ void setup() {
   ret = Wire.endTransmission();
   Serial.println(ret);
 
-
   // wait for sensor
-  //delay(20);
+  delay(20);
 
   // assuming an external reference shows 350 ppm
   calibration = 650;
