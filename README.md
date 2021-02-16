@@ -34,11 +34,11 @@ All samples in this directory share the same format; as such, you can follow the
 ## SEN44
 |Name|Protocol|Description|
 |----|--------|-----------|
-|[SEN44_I2C_minimal_example](/SEN44_I2C_minimal_example)|I2C|SEN44 basic example for I2C|
+|[SEN44_I2C_minimal_example](/SEN44_I2C_minimal_example)|I2C|Basic example for I2C|
 |[SEN44_I2C_change_T_offset_example](/SEN44_I2C_change_T_offset_example)|I2C|Change T offset over I2C|
 |[SEN44_I2C_change_VOC_parameters_example](/SEN44_I2C_change_VOC_parameters_example)|I2C|Change VOC parameters over I2C|
 |[SEN44_SCD40_I2C_example](/SEN44_SCD40_I2C_example)|I2C|Example using SEN44 with SCD4x|
-|[SEN44_UART_minimal_example](/SEN44_UART_minimal_example)|UART|SEN44 basic example for UART|
+|[SEN44_UART_minimal_example](/SEN44_UART_minimal_example)|UART|Basic example for UART (Serial) interface|
 
 ## SFA30
 |Name|Protocol|Description|
