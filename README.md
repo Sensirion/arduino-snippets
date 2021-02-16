@@ -21,3 +21,12 @@ All samples in this directory share the same format; as such, you can follow the
 1. Save your project under a meaningful name
 1. Compile and flash the sketch
 1. Open the "Serial Monitor" from the "Tools" menu in the Arduino IDE to display the output data read from the sensor
+
+# Examples by sensor
+
+## SCD4x
+
+|Name|Description|
+|----|-----------|
+|SCD4x_I2C_minimal_example|Minimal example to get started|
+|SCD4x_I2C_FRC_Forced_Recalibration_Example|Show forced recalibration|
