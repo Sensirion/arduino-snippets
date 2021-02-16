@@ -40,7 +40,7 @@ All samples in this directory share the same format; as such, you can follow the
 |[SEN44_SCD40_I2C_example](/SEN44_SCD40_I2C_example)|I2C|Example using SEN44 with SCD4x|
 |[SEN44_UART_minimal_example](/SEN44_UART_minimal_example)|UART|SEN44 basic example for UART|
 
-## SFA
+## SFA30
 |Name|Protocol|Description|
 |----|--------|-----------|
 |[SFA30_I2C_minimal_example](/SFA30_I2C_minimal_example)|I2C|Minimal example to get started|
