@@ -28,5 +28,5 @@ All samples in this directory share the same format; as such, you can follow the
 
 |Name|Description|
 |----|-----------|
-|SCD4x_I2C_minimal_example|Minimal example to get started|
-|SCD4x_I2C_FRC_Forced_Recalibration_Example|Show forced recalibration|
+|[SCD4x_I2C_minimal_example](/SCD4x_I2C_minimal_example)|Minimal example to get started|
+|[SCD4x_I2C_FRC_Forced_Recalibration_Example](SCD4x_I2C_FRC_Forced_Recalibration_Example)|Show forced recalibration|
