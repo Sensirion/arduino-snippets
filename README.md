@@ -26,7 +26,6 @@ All samples in this directory share the same format; as such, you can follow the
 
 ## SCD4x
 
-|Name|Description|
 |Name|Protocol|Description|
 |----|--------|-----------|
 |[SCD4x_I2C_minimal_example](/SCD4x_I2C_minimal_example)|I2C|Minimal example to get started|
