@@ -21,3 +21,59 @@ All samples in this directory share the same format; as such, you can follow the
 1. Save your project under a meaningful name
 1. Compile and flash the sketch
 1. Open the "Serial Monitor" from the "Tools" menu in the Arduino IDE to display the output data read from the sensor
+
+# Examples by sensor
+
+## SCD4x
+
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SCD4x_I2C_minimal_example](/SCD4x_I2C_minimal_example)|I2C|Minimal example to get started|
+|[SCD4x_I2C_FRC_Forced_Recalibration_Example](SCD4x_I2C_FRC_Forced_Recalibration_Example)|I2C|Show forced recalibration|
+
+## SEN44
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SEN44_I2C_minimal_example](/SEN44_I2C_minimal_example)|I2C|Basic example for I2C|
+|[SEN44_I2C_change_T_offset_example](/SEN44_I2C_change_T_offset_example)|I2C|Change T offset over I2C|
+|[SEN44_I2C_change_VOC_parameters_example](/SEN44_I2C_change_VOC_parameters_example)|I2C|Change VOC parameters over I2C|
+|[SEN44_SCD40_I2C_example](/SEN44_SCD40_I2C_example)|I2C|Example using SEN44 with SCD4x|
+|[SEN44_UART_minimal_example](/SEN44_UART_minimal_example)|UART|Basic example for UART (Serial) interface|
+
+## SFA30
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SFA30_I2C_minimal_example](/SFA30_I2C_minimal_example)|I2C|Minimal example to get started|
+
+
+## SGP40
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SGP40_SHTC3_I2C_voc_algo_minimal_example](/SGP40_SHTC3_I2C_voc_algo_minimal_example)|I2C|Minimal example to use SGP40 with VOC Index algorithm|
+
+## SHT3x
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SHT3x_I2C_minimal_example](/SHT3x_I2C_minimal_example)|I2C|Minimal example to get started|
+
+## SHT4x
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SHT4x_I2C_minimal_example](/SHT4x_I2C_minimal_example)|I2C|Minimal example to get started|
+
+## SHTC3
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SHTC3_I2C_minimal_example](/SHTC3_I2C_minimal_example)|I2C|Minimal example to get started|
+
+
+## SVM40
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SVM40_I2C_minimal_example](/SVM40_I2C_minimal_example)|I2C|Minimal example to get started|
+|[SVM40_I2C_change_T_offset_example](/SVM40_I2C_change_T_offset_example)|I2C|Change T offset|
+|[SVM40_I2C_change_VOC_parameters_example](/SVM40_I2C_change_VOC_parameters_example)|I2C|Change VOC index algorithm parameters|
+
+
+
+
