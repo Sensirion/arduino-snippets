@@ -76,5 +76,11 @@ All samples in this directory share the same format; as such, you can follow the
 |[SVM40_I2C_change_VOC_parameters_example](/SVM40_I2C_change_VOC_parameters_example)|I2C|Change VOC index algorithm parameters|
 
 
+## SDP8xx
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SDP8xx_I2C_minimal_example](/SDP8xx_I2C_minimal_example)|I2C|Minimal example to get started|
+
+
 
 
