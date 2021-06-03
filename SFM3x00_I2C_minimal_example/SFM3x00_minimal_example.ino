@@ -38,7 +38,7 @@ enum SFM_MODEL {
   SFM3200,
   SFM3300,
   SFM3400,
-  SFM_MODEL_LENGTH
+  SFM_MODEL_LENGTH //< Note: this is not a valid value for 'MODEL' below
 };
 
 // from the datasheets:
