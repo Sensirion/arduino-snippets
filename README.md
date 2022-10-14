@@ -41,6 +41,19 @@ All samples in this directory share the same format; as such, you can follow the
 |[SEN44_SCD40_I2C_example](/SEN44_SCD40_I2C_example)|I2C|Example using SEN44 with SCD4x|
 |[SEN44_UART_minimal_example](/SEN44_UART_minimal_example)|UART|Basic example for UART (Serial) interface|
 
+## SEN5x
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SEN5x_I2C_minimal_example](/SEN5x_I2C_minimal_example)|I2C|Basic example for I2C|
+|[SEN5x_I2C_config_STAR_example](/SEN5x_I2C_config_STAR_example)|I2C|Example configuration of STAR|
+|[SEN5x_I2C_config_coldstart_example](/SEN5x_I2C_config_coldstart_example)|I2C|Change T offset for cold start compensation|
+|[SEN5x_I2C_config_warmstart_example](/SEN5x_I2C_config_warmstart_example)|I2C|Change T behaviour in warm start scenario|
+|[SEN5x_I2C_change_VOC_parameters_example](/SEN5x_I2C_change_VOC_parameters_example)|I2C|Change VOC parameters over I2C|
+|[SEN5x_I2C_change_NOx_parameters_example](/SEN5x_I2C_change_NOx_parameters_example)|I2C|Change NOx parameters over I2C|
+|[SEN5x_I2C_read_raw](/SEN5x_I2C_read_raw)|I2C|Example for reading raw VOC and NOX values from the sensor over I2C|
+|[SEN5x_I2C_switch_measurement_mode](/SEN5x_I2C_switch_measurement_mode)|I2C|Example for switching between gas only and full measurement mode (requires FW2.0) over I2C|
+
+
 ## SFA30
 |Name|Protocol|Description|
 |----|--------|-----------|
