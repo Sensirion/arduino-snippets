@@ -58,10 +58,11 @@ void setup() {
   Wire.write(0xb1);
   Wire.endTransmission();
 
-  // wait for first measurement to be finished
-  delay(2000);
+  // wait for 5 minutes to equilibrate sensor to ambient
+  Serial.println("# Waiting 5 minutes for equilibration");
+  delay(5 * 60 * 1000);
 
-  Serial.println("# CO2 values before recalibration");
+  Serial.println("# CO2 values before calibration");
 
   // measure 5 times 
   for(repetition = 0; repetition < 5; repetition++) {
@@ -93,10 +94,7 @@ void setup() {
 
     delay(2000);
   }
-  
-  // wait for another 5 minutes to equilibrate sensor to ambient
-  Serial.println("# Waiting 5 minutes for equilibration");
-  //delay(5 * 60 * 1000);
+
 
   // stop scd measurement
   Wire.beginTransmission(SCD_ADDRESS);
@@ -110,6 +108,8 @@ void setup() {
 
   // assuming an external reference shows 650 ppm
   calibration = 650;
+  Serial.print("# Calibrating with reference value [ppm]: ");
+  Serial.println(calibration);
   
   // prepare buffer with data for calibration
   // calculate CRC for each 2 bytes of data
