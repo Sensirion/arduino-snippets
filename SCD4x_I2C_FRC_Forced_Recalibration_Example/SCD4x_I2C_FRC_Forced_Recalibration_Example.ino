@@ -60,7 +60,7 @@ void setup() {
 
   // wait for 5 minutes to equilibrate sensor to ambient
   Serial.println("# Waiting 5 minutes for equilibration");
-  delay(5 * 60 * 1000);
+  delay((unsigned long)5 * 60 * 1000);
 
   Serial.println("# CO2 values before calibration");
 
