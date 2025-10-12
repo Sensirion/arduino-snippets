@@ -54,6 +54,11 @@ All samples in this directory share the same format; as such, you can follow the
 |[SEN5x_I2C_switch_measurement_mode](/SEN5x_I2C_switch_measurement_mode)|I2C|Example for switching between gas only and full measurement mode (requires FW2.0) over I2C|
 
 
+## SEN6x
+|Name|Protocol|Description|
+|----|--------|-----------|
+|[SEN63C_I2C_minimal_example](/SEN63C_I2C_minimal_example)|I2C|Basic example for I2C|
+
 ## SFA30
 |Name|Protocol|Description|
 |----|--------|-----------|
