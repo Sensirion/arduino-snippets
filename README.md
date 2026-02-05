@@ -58,6 +58,7 @@ All samples in this directory share the same format; as such, you can follow the
 |Name|Protocol|Description|
 |----|--------|-----------|
 |[SEN63C_I2C_minimal_example](/SEN63C_I2C_minimal_example)|I2C|Basic example for I2C|
+|[SEN66_I2C_minimal_example](/SEN66_I2C_minimal_example)|I2C|Basic example for I2C|
 
 ## SFA30
 |Name|Protocol|Description|
